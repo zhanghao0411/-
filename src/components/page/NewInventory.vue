@@ -202,6 +202,7 @@ export default{
                             });
                             self.newInventorySwitch= false;
                             self.getList();
+                            self.getListAll();
                         }
                     })
                 }else {

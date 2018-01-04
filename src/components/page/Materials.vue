@@ -245,6 +245,7 @@ export default{
 						    });
 						    self.newMaterialsSwitch= false;
 						    self.getList();
+						    self.getListAll();
 						}
 					})
 	          	}else {

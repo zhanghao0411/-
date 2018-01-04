@@ -13,7 +13,7 @@
           value-format="yyyy-MM-dd"
           :picker-options="pickerOptions2" style="margin-left:20px;">
             </el-date-picker>
-         <el-button type="primary" @click="getList">帅选</el-button>
+         <el-button type="primary" @click="getList">筛选</el-button>
         </div>
         <div class="bpTable">
             <el-table :data="netProfit" border style="width: 30%" ref="netProfitTable">

@@ -47,7 +47,7 @@
                     {
                         icon: 'el-icon-menu',
                         index: '3',
-                        title: '原料&库存',
+                        title: '库存管理',
                         subs: [
                             {
                                 index: 'materials',
