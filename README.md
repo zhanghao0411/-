@@ -1,6 +1,6 @@
 # food_master
 
-> 食品管理1234
+> 食品管理
 
 ## Build Setup
 
