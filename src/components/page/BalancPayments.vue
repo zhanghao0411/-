@@ -20,7 +20,9 @@
                 <el-table-column  label="净利润：总数">
                     <el-table-column type="index" label="序号"  width="50">
                     </el-table-column>
-                    <el-table-column prop="modifyDate" label="日期"  width="200">
+                    <el-table-column prop="modifyDate" label="日期"  width="150">
+                    </el-table-column>
+                    <el-table-column prop="goods_name" label="名称"  width="150">
                     </el-table-column>
                     <el-table-column prop="goods_profit" label="金额" >
                     </el-table-column>
@@ -30,7 +32,9 @@
                 <el-table-column  label="收入：总数">
                     <el-table-column type="index" label="序号"  width="50">
                     </el-table-column>
-                    <el-table-column prop="modifyDate" label="日期"  width="200">
+                    <el-table-column prop="modifyDate" label="日期"  width="150">
+                    </el-table-column>
+                    <el-table-column prop="goods_name" label="名称"  width="150">
                     </el-table-column>
                     <el-table-column prop="goods_price" label="金额" >
                     </el-table-column>
@@ -40,7 +44,9 @@
                 <el-table-column  label="支出：总数">
                     <el-table-column type="index" label="序号"  width="50">
                     </el-table-column>
-                    <el-table-column prop="date" label="日期"  width="200">
+                    <el-table-column prop="date" label="日期"  width="150">
+                    </el-table-column>
+                    <el-table-column prop="material_name" label="名称"  width="150">
                     </el-table-column>
                     <el-table-column prop="amount" label="金额" >
                     </el-table-column>
