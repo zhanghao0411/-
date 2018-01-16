@@ -2,11 +2,11 @@
 	<div class="index-warp">
 		<p class="title">已完成订单</p> <el-input v-model="select_word" placeholder="筛选产品关键词" class="search"></el-input>
 		<el-table :data="indexData" border style="width: 100%" ref="indexTable">
-            <el-table-column type="index" label="序号"  width="100">
+            <el-table-column type="index" label="序号"  width="50">
             </el-table-column>
-			<el-table-column prop="customer" label="客户名称"  width="150">
+			<el-table-column prop="customer" label="客户名称"  >
             </el-table-column>
-            <el-table-column prop="createdate" label="订单日期"  width="200">
+            <el-table-column prop="createdate" label="订单日期" >
             </el-table-column>
             <el-table-column prop="goodsName" label="产品名称" width="200">
             </el-table-column>
@@ -14,13 +14,13 @@
             </el-table-column>
             <el-table-column prop="goodsPrice" label="总价" width="100">
             </el-table-column>
-            <el-table-column prop="readydate" label="交付日期" width="200">
+            <el-table-column prop="readydate" label="交付日期" >
             </el-table-column>
-            <el-table-column prop="phone" label="手机号码" width="150">
+            <el-table-column prop="phone" label="手机号码" >
             </el-table-column>
             <el-table-column prop="address" label="收货地址" width="200">
             </el-table-column>
-            <el-table-column prop="logistics" label="物流单号" width="150">
+            <el-table-column prop="logistics" label="物流单号" >
             </el-table-column>
         </el-table>
 	</div>

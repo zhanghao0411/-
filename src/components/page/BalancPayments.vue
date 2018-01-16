@@ -17,36 +17,36 @@
         </div>
         <div class="bpTable">
             <el-table :data="netProfit" border style="width: 30%" ref="netProfitTable">
-                <el-table-column  label="净利润：总数">
+                <el-table-column v-bind:label="profitSum">
                     <el-table-column type="index" label="序号"  width="50">
                     </el-table-column>
-                    <el-table-column prop="modifyDate" label="日期"  width="150">
+                    <el-table-column prop="modifyDate" label="日期"  >
                     </el-table-column>
-                    <el-table-column prop="goods_name" label="名称"  width="150">
+                    <el-table-column prop="goods_name" label="名称"  >
                     </el-table-column>
                     <el-table-column prop="goods_profit" label="金额" >
                     </el-table-column>
                 </el-table-column>    
             </el-table>
             <el-table :data="income" border style="width: 30%" ref="incomeTable">
-                <el-table-column  label="收入：总数">
+                <el-table-column  v-bind:label="incomeSum">
                     <el-table-column type="index" label="序号"  width="50">
                     </el-table-column>
-                    <el-table-column prop="modifyDate" label="日期"  width="150">
+                    <el-table-column prop="modifyDate" label="日期"  >
                     </el-table-column>
-                    <el-table-column prop="goods_name" label="名称"  width="150">
+                    <el-table-column prop="goods_name" label="名称" >
                     </el-table-column>
                     <el-table-column prop="goods_price" label="金额" >
                     </el-table-column>
                 </el-table-column>    
             </el-table>
             <el-table :data="expenditure" border style="width: 30%" ref="expenditureTable">
-                <el-table-column  label="支出：总数">
+                <el-table-column  v-bind:label="costSum">
                     <el-table-column type="index" label="序号"  width="50">
                     </el-table-column>
-                    <el-table-column prop="date" label="日期"  width="150">
+                    <el-table-column prop="date" label="日期"  >
                     </el-table-column>
-                    <el-table-column prop="material_name" label="名称"  width="150">
+                    <el-table-column prop="material_name" label="名称"  >
                     </el-table-column>
                     <el-table-column prop="amount" label="金额" >
                     </el-table-column>
@@ -93,6 +93,10 @@ export default{
             netProfit:[],
             income:[],
             expenditure:[],
+            costSum:'',
+            incomeSum:'',
+            profitSum:''
+
          }
     },
     beforeMount:function(){
@@ -134,8 +138,11 @@ export default{
             axios.all([self.postProfits(),self.postIncome(),self.postExpenditure()])  
                 .then(axios.spread(function(a,b,c){//全部请求正确时候触发  
                     self.netProfit=a.data.data.listMap;
+                    self.profitSum ='净利润：'+ a.data.data.profitSum;
                     self.income=b.data.data.listMap;
+                    self.incomeSum='收入：'+b.data.data.incomeSum;
                     self.expenditure=c.data.data.listMap;
+                    self.costSum = '支出：'+c.data.data.costSum;
                 }))  
         },
 

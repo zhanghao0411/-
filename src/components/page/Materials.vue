@@ -48,7 +48,7 @@
             </el-table-column>
             <el-table-column prop="materialName" label="原材料名称"  width="300">
             </el-table-column>
-            <el-table-column prop="materialQuantity" label="库存量" width="260">
+            <el-table-column prop="materialQuantity" label="库存量" >
             </el-table-column>
             <el-table-column prop="materialUnit" label="单位" width="250">
             </el-table-column>
@@ -69,20 +69,20 @@
                    :total="listNum">
            </el-pagination>
         </div>
-       <el-dialog title="编辑原材料" :visible.sync="editMaterialsSwitch" width="30%">
-       			<el-form :model="formEditMaterials"  :rules="rules2"  ref="formEditMaterials" >
-       				<el-form-item label="原材料名称" :label-width="formLabelWidth">
-       			      	<span>{{formEditMaterials.name}}</span>
-       			    </el-form-item>
-       				<el-form-item prop="num" label="数量" :label-width="formLabelWidth">
-       			      	<el-input v-model="formEditMaterials.num" auto-complete="off"></el-input>
-       			    </el-form-item>
-       			</el-form>
-       			<div slot="footer" class="dialog-footer">
-       			    <el-button @click="editMaterialsSwitch = false">取 消</el-button>
-       			    <el-button type="primary" @click="submitEditMaterials('formEditMaterials')">确 定</el-button>
-       			</div>
-       		</el-dialog>
+        <el-dialog title="编辑原材料" :visible.sync="editMaterialsSwitch" width="30%">
+   			<el-form :model="formEditMaterials"  :rules="rules2"  ref="formEditMaterials" >
+   				<el-form-item label="原材料名称" :label-width="formLabelWidth">
+   			      	<span>{{formEditMaterials.name}}</span>
+   			    </el-form-item>
+   				<el-form-item prop="num" label="数量" :label-width="formLabelWidth">
+   			      	<el-input v-model="formEditMaterials.num" auto-complete="off"></el-input>
+   			    </el-form-item>
+   			</el-form>
+   			<div slot="footer" class="dialog-footer">
+   			    <el-button @click="editMaterialsSwitch = false">取 消</el-button>
+   			    <el-button type="primary" @click="submitEditMaterials('formEditMaterials')">确 定</el-button>
+   			</div>
+       	</el-dialog>
 	</div>
 </template>
 <script>

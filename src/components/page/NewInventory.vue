@@ -19,7 +19,7 @@
                 <el-button type="primary" @click="submitNewInventory('formNewInventory')">确 定</el-button>
             </div>
         </el-dialog>
-        <el-dialog title="成品制作页面" :visible.sync="finishedProductSwitch" width="45%">
+        <el-dialog title="成品制作页面" :visible.sync="finishedProductSwitch" width="46%">
             <el-form  :model="formFinishedProduct"  ref="formFinishedProduct" class="demo-form-inline">
                 <el-form-item  prop="name" label="产品名称" :label-width="formLabelWidth" class="pname" :rules="[
                     {type:'number',required: true, message: '请选择产品', trigger: 'change' }
@@ -92,16 +92,18 @@
             </el-table-column>
 			<el-table-column prop="goodsName" label="成品名称"  width="250">
             </el-table-column>
-            <el-table-column prop="goodsQuantity" label="库存量"  width="300">
+            <el-table-column prop="goodsQuantity" label="库存量"  width="">
             </el-table-column>
-            <el-table-column prop="materialUnit" label="单位" width="260">
+            <el-table-column prop="materialUnit" label="单位" width="">
             </el-table-column>
             <el-table-column prop="materialPrice" label="单价" width="150">
             </el-table-column>
             <el-table-column label="操作">
                 <template scope="scope">
                     <el-button size="small"
-                            @click="handleEdit(scope.row.id,scope.row.materialName,scope.row.materialQuantity,scope.row.materialPrice)">编辑</el-button>
+                            @click="handleEdit(scope.row.id,scope.row.goodsQuantity,scope.row.goodsName,scope.row.materialPrice)">编辑</el-button>
+                    <el-button size="small" type="danger"
+                            @click="handleDelete(scope.row.id)">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -111,6 +113,20 @@
                    :total="listNum">
            </el-pagination>
         </div>
+        <el-dialog title="编辑库存" :visible.sync="editInventorySwitch" width="30%">
+            <el-form :model="formEditInventory"  :rules="rules2"  ref="formEditMaterials" >
+                <el-form-item label="成品名称" :label-width="formLabelWidth">
+                    <span>{{formEditInventory.name}}</span>
+                </el-form-item>
+                <el-form-item prop="num" label="数量" :label-width="formLabelWidth">
+                    <el-input v-model="formEditInventory.num" auto-complete="off"></el-input>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="editInventorySwitch = false">取 消</el-button>
+                <el-button type="primary" @click="submitInventory('formEditMaterials')">确 定</el-button>
+            </div>
+        </el-dialog>
 	</div>
 </template>
 <script>
@@ -126,6 +142,7 @@ export default{
             listNum:null,
             newInventorySwitch:false,
             finishedProductSwitch:false,
+            editInventorySwitch:false,
             formNewInventory:{
                 name: '',
                 unit: '',
@@ -140,6 +157,13 @@ export default{
                     materialQuantity:'',
                 }],
             },
+            formEditInventory:{
+                id:'',
+                oldNum:'',
+                price:'',
+                name:'',
+                num:''
+            },
             formLabelWidth: '120px',
             rules1:{
                 name:[
@@ -151,6 +175,12 @@ export default{
                     { min: 1, max: 4, message: '长度在 1 到 4 个字符', trigger: 'blur' }
                 ],
             },
+            rules2:{
+                num:[
+                    { required: true, message: '请输入成品数量', trigger: 'blur' },
+                    { min: 1, max: 10, message: '长度在 1到 10 个字符', trigger: 'blur' }
+                ],
+            }
         }
     },
  	beforeMount:function(){
@@ -232,6 +262,83 @@ export default{
                                 type: 'success'
                             });
                             self.finishedProductSwitch= false;
+                            self.getList();
+                        }
+                    })
+                }else {
+                    return false;
+                }
+            })
+       },
+       handleEdit:function(id,Quantity,name,Price){
+            this.editInventorySwitch = true;
+            this.formEditInventory.id = id;
+            this.formEditInventory.name = name;
+            this.formEditInventory.oldNum = Quantity;
+            this.formEditInventory.price  = Price;
+            this.formEditInventory.num = null;
+       },
+       handleDelete:function(id){
+            let self = this;
+            this.$confirm('此操作将永久删除该条目, 是否继续?', '提示', {
+                 confirmButtonText: '确定',
+                 cancelButtonText: '取消',
+                  type: 'warning'
+                }).then(() => {
+                    let params = {
+                        api:"/product/goods/delete",
+                        param:{
+                            id:id,
+                        }
+                    };
+                    api.post(params).then(function(res){
+                        if(res.data.code!=='1'){
+                             self.$alert(res.data.message, '信息提示');
+                        }else{
+                            self.$notify({
+                                title: '删除成功',
+                                message: res.data.message,
+                                type: 'success'
+                            });
+                            self.editMaterialsSwitch= false;
+                            self.getList();
+                        }
+                    })                  
+                 /* this.$message({
+                    type: 'success',
+                    message: '删除成功!'
+                  });*/
+                }).catch(() => {
+                  this.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                  });          
+                });
+            
+       },
+       submitInventory:function(formName){
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    let self = this;
+                    let params = {
+                        api:"/product/goods/update",
+                        param:{
+                            id:self.formEditInventory.id,
+                            goodsOldQuantity:self.formEditInventory.oldNum,
+                            materialPrice:self.formEditInventory.price,
+                            goodsQuantity:self.formEditInventory.num
+                        }
+                    };
+                    api.postJson(params).then(function(res){
+                        if(res.data.code!=='1'){
+                             self.$alert(res.data.message, '信息提示');
+                        }else{
+                            self.$notify({
+                                title: '修改成品成功',
+                                message: res.data.message,
+                                type: 'success'
+                            });
+                            self.editInventorySwitch= false;
                             self.getList();
                         }
                     })

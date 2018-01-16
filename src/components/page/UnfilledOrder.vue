@@ -68,15 +68,15 @@
             </el-table-column>
             <el-table-column prop="goodsQuantity" label="数量" width="50">
             </el-table-column>
-            <el-table-column prop="goodsPrice" label="总价" width="100">
+            <el-table-column prop="goodsPrice" label="总价">
             </el-table-column>
             <el-table-column prop="readydate" label="交付日期" width="150">
             </el-table-column>
             <el-table-column prop="phone" label="手机号" width="100">
             </el-table-column>
-            <el-table-column prop="address" label="收货地址" width="200">
+            <el-table-column prop="address" label="收货地址">
             </el-table-column>
-            <el-table-column prop="logistics" label="物流单号" width="150">
+            <el-table-column prop="logistics" label="物流单号">
             </el-table-column>
             <el-table-column prop="typech" label="状态" >
             </el-table-column>
